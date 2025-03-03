@@ -1,0 +1,16 @@
+# Ignore diretórios e arquivos temporários criados pelo Visual Studio
+.vs/
+.idea/
+.vscode/
+# Arquivos de build
+bin/
+obj/
+# Arquivos de configurações pessoais do Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+# Arquivos do NuGet
+packages/
+# Arquivos de log
+*.log
