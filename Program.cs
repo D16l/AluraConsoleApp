@@ -176,6 +176,7 @@ namespace AluraConsoleApp
                 Title("Pesquisar" + " - Usuário: " + CurrentUser);
                 Console.WriteLine("1. Pesquisar por nome");
                 Console.WriteLine("2. Pesquisar pelo tipo");
+                Console.WriteLine("3. Pesquisar por gênero");
                 Console.WriteLine("\nAperte qualquer outra tecla para voltar");
 
                 switch (Console.ReadKey().Key)
@@ -185,6 +186,9 @@ namespace AluraConsoleApp
                         break;
                     case ConsoleKey.D2:
                         HandleTypeSearch();
+                        break;
+                    case ConsoleKey.D3:
+                        HandleGenreSearch();
                         break;
                     default:
                         continueSearching = false;
@@ -396,7 +400,7 @@ namespace AluraConsoleApp
             {
                 Console.WriteLine("Nenhum resultado encontrado");
             }
-            Console.WriteLine("Aperte qualquer outra tecla para voltar");
+            Console.WriteLine("\nAperte qualquer outra tecla para voltar");
             Console.ReadKey();
         }
         private static void HandleNameSearch()
@@ -431,6 +435,33 @@ namespace AluraConsoleApp
                 var result = Search.SearchByType(searchForType);
                 ShowSearchResults(result);
             }
+        }
+        private static void HandleGenreSearch()
+        {
+            Console.Clear();
+
+            List<Genre> genres = new List<Genre>((Genre[])Enum.GetValues(typeof(Genre)));
+
+            foreach (var genre in genres)
+            {
+                Console.WriteLine($"{(int)genre + 1}. {genre}");
+            }
+
+            var input = Console.ReadLine();
+
+            if (int.TryParse(input, out int genreIndex) && Enum.IsDefined(typeof(Genre), genreIndex))
+            {
+                Genre selectedGenre = (Genre)genreIndex;
+
+                Console.Clear();
+                var result = Music.AllMusics.Where(m => m.Genre == selectedGenre);
+                ShowSearchResults(result);
+            }
+            else
+            {
+                ShowInvalidInputMessage();
+            }
+
         }
         #endregion
 
